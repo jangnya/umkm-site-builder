@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
 import { db } from '../../../db';
 import { storeCategories, stores } from '../../../db/schema';
-import { eq, and, isNull, sql } from 'drizzle-orm';
+import { eq, and, isNull } from 'drizzle-orm';
 import { jsonSuccess, jsonError } from '../../../lib/utils/api-handler';
 import { getAuthenticatedUser, canManageStore } from '../../../lib/auth';
-import { logger } from '@/lib/utils/logger';
 
 export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
@@ -35,14 +34,6 @@ export const POST: APIRoute = async ({ request }) => {
     const [store] = await db.select().from(stores).where(eq(stores.id, storeId)).limit(1);
     if (!store || !canManageStore(user, store)) {
       return jsonError('Anda tidak memiliki izin mengelola kategori toko ini', 403);
-    }
-
-    const [catCount] = await db.select({ count: sql`count(*)` })
-      .from(storeCategories)
-      .where(and(eq(storeCategories.storeId, storeId), isNull(storeCategories.deletedAt)));
-
-    if (Number(catCount.count) >= 5) {
-      return jsonError('Maksimal 5 kategori. Tambah lebih banyak fitur berbayar.', 402, undefined, 'PAYMENT_REQUIRED');
     }
     
     // Check if slug exists
@@ -172,8 +163,7 @@ export const DELETE: APIRoute = async ({ request }) => {
     }
 
     return jsonSuccess({ success: true }, 200);
-  } catch (error) {
-    logger.error('categories-delete', error);
+  } catch {
     return jsonError('Gagal menghapus kategori', 500);
   }
 };

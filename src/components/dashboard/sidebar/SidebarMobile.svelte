@@ -2,7 +2,6 @@
   import type { AuthenticatedUser } from "@/lib/auth";
   import { getRoleConfig, type NavGroup } from "./sidebar.helpers";
   import { createEventDispatcher } from "svelte";
-  import TenantQuota from "./TenantQuota.svelte";
 
   export let user: AuthenticatedUser;
   export let navGroups: NavGroup[] = [];
@@ -123,11 +122,6 @@
         </div>
       </div>
     {/each}
-    {#if user.role === 'tenant'}
-      <div class="px-3 pt-2">
-        <TenantQuota />
-      </div>
-    {/if}
   </nav>
 
   <div class="border-t border-light p-3 space-y-2">

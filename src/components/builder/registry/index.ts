@@ -35,6 +35,7 @@ import FooterContent from '../content/FooterContent.svelte';
 
 // Styles Inspector Components
 import HeaderStylesTab from '../inspector/HeaderStylesTab.svelte';
+import CatalogStylesTab from '../inspector/CatalogStylesTab.svelte';
 
 export * from './registry.types';
 
@@ -132,6 +133,7 @@ export const sectionRegistry: SectionRegistryMap = {
     icon: ShoppingBag as unknown as ComponentType,
     renderComponent: ProductCatalog as unknown as ComponentType,
     inspectorComponent: ProductCatalogContent as unknown as ComponentType,
+    stylesComponent: CatalogStylesTab as unknown as ComponentType,
     defaultConfig: defaultSectionConfigs['product_catalog'],
     layoutPresets: [
       'grid_standard',

@@ -37,9 +37,7 @@ const {
     <ToastContainer client:load />
     <RateLimitAlert client:load />
     {!hideNavbar && <Navbar />}
-    <div id="base-content-container">
-      <slot />
-    </div>
+    <slot />
   </body>
 </html>
 

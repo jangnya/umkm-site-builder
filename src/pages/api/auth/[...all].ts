@@ -1,6 +1,5 @@
 import { auth } from "@/lib/auth";
 import type { APIRoute } from "astro";
-import { logger } from '@/lib/utils/logger';
 
 export const ALL: APIRoute = async (ctx) => {
   try {
@@ -12,8 +11,7 @@ export const ALL: APIRoute = async (ctx) => {
     }
 
     return response;
-  } catch (error) {
-    logger.error('auth-handler', error);
+  } catch {
     if (ctx.url.pathname.includes("/callback")) {
       return ctx.redirect("/auth/login?error=unauthorized_email");
     }

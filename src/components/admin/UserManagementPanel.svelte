@@ -10,7 +10,6 @@
   import AdminUserTable from './user/AdminUserTable.svelte';
 
   export let initialUsersJson: string = '[]';
-  export let currentUser: any = null;
   let users: AdminUserItem[] = [];
   
   // Try to parse initial JSON if provided
@@ -141,9 +140,8 @@
 
   const roleOptions = [
     { value: 'all', label: 'Semua Peran' },
-    { value: 'tenant', label: 'Merchant' },
-    { value: 'designer', label: 'Desainer' },
-    ...(currentUser?.role === 'superadmin' ? [{ value: 'admin', label: 'Admin' }] : [])
+    { value: 'tenant', label: 'Tenant' },
+    { value: 'designer', label: 'Desainer' }
   ];
 
   const statusOptions = [
@@ -174,7 +172,7 @@
           class="font-bold"
         >
           <span class="material-symbols-outlined text-white text-base">person_add</span>
-          <span>{currentUser?.role === 'superadmin' ? 'Tambah Admin' : 'Tambah Pengguna'}</span>
+          <span>Tambah Pengguna</span>
         </Button>
       </div>
     </div>
@@ -202,7 +200,6 @@
       </Input>
     </div>
     
-    {#if currentUser?.role === 'superadmin'}
     <div class="w-full sm:w-48 shrink-0">
       <Select 
         bind:value={roleFilter}
@@ -210,7 +207,6 @@
         size="md"
       />
     </div>
-    {/if}
     
     <div class="w-full sm:w-48 shrink-0">
       <Select 
@@ -256,7 +252,6 @@
 
 <AdminUserAddModal 
   isOpen={isAddModalOpen} 
-  currentUser={currentUser}
   on:close={() => isAddModalOpen = false} 
   on:success={() => { isAddModalOpen = false; fetchUsers(); }} 
 />
