@@ -1,10 +1,9 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "umkm-site-builder",
-  "main": "@astrojs/cloudflare/entrypoints/server",
-  "compatibility_date": "2026-09-03",
-  "compatibility_flags": ["nodejs_compat"],
-  "observability": {
-    "enabled": true
-  }
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "707d9ad8665049a9b9d57f1f67be4f4b"
+    }
+  ]
 }
