@@ -7,7 +7,6 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   output: "server",
   adapter: cloudflare(),
-  fetchFile: null,
   integrations: [svelte()],
   vite: {
     server: {
